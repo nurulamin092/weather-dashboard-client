@@ -8,14 +8,15 @@ const useWeather = () => {
         maxTemperature: "",
         minTemperature: "",
         humidity: "",
+        cloudPercentage: "",
         wind: "",
         time: "",
         longitude: "",
-        latitude: ""
+        latitude: "",
     });
     const [loading, setLoading] = useState({
         state: false,
-        message: ""
+        message: "",
     });
     const [error, setError] = useState(null);
 
@@ -24,14 +25,14 @@ const useWeather = () => {
             setLoading({
                 ...loading,
                 state: true,
-                message: "Fetching weather data..."
+                message: "Fetching weather data...",
             });
 
-            const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=
-            ${latitude}&
-            lon=${longitude}
-            &appid=${import.meta.env.VITE_WEATHER_API_KEY}
-            &units=metric`);
+            const response = await fetch(
+                `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${import.meta.env.VITE_WEATHER_API_KEY
+                }&units=metric`
+            );
+
 
             if (!response.ok) {
                 const errorMessage = `Fetching data failed:${response.status}`
@@ -48,15 +49,15 @@ const useWeather = () => {
                 maxTemperature: data?.main?.temp_max,
                 minTemperature: data?.main?.temp_min,
                 humidity: data?.main?.humidity,
+                cloudPercentage: data?.clouds?.all,
                 wind: data?.wind?.speed,
                 time: data?.dt,
                 longitude: longitude,
-                latitude: latitude
-
+                latitude: latitude,
             }
-            setWeatherData(updateWeatherData)
-        } catch (error) {
-            setError(error)
+            setWeatherData(updateWeatherData);
+        } catch (err) {
+            setError(err)
         } finally {
             setLoading({
                 ...loading,
@@ -67,6 +68,7 @@ const useWeather = () => {
     };
     useEffect(() => {
         setLoading({
+            // ...loading,
             loading: true,
             message: 'Finding location...'
         })
@@ -79,3 +81,5 @@ const useWeather = () => {
     }
 
 }
+
+export default useWeather
