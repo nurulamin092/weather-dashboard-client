@@ -1,11 +1,13 @@
 import Page from "./page/Page";
-import { WeatherProvider } from "./provider";
+import { WeatherProvider, FavoritesProvider } from "./provider";
 
 function App() {
   return (
     <>
       <WeatherProvider>
-        <Page />
+        <FavoritesProvider>
+          <Page />
+        </FavoritesProvider>
       </WeatherProvider>
     </>
   );
