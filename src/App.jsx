@@ -1,5 +1,5 @@
 import Page from "./page/Page";
-import { WeatherProvider, FavoritesProvider } from "./provider";
+import { FavoritesProvider, WeatherProvider } from "./provider";
 
 function App() {
   return (
