@@ -12,15 +12,13 @@ export default function AddToFavorite() {
   const { latitude, longitude, location } = weatherData;
 
   useEffect(() => {
-    console.log("This is favorites ...........", favorites);
     const found = favorites.find((fav) => fav.location === location);
-    console.log("djsdao", found);
     toggleFavorites(found);
   });
 
   function handleFavorites() {
     const found = favorites.find((fav) => fav.location === location);
-    console.log("sdkesoo", found);
+
     if (!found) {
       addToFavorites(latitude, longitude, location);
     } else {
