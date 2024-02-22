@@ -23,7 +23,7 @@ export default function Page() {
       case "Rain":
         return RainyDayImage;
       case "Clouds":
-        return ScatteredCloudsImage;
+        return FewCloudsImage;
       case "Clear":
         return ClearSkyImage;
       case "Snow":
@@ -54,8 +54,8 @@ export default function Page() {
   return (
     <>
       {loading.state ? (
-        <div>
-          <p>{loading.message}</p>
+        <div className="flex bg-gray-200 rounded-md w-96 p-8 mt-14 mx-auto">
+          <p className="text-center text-2xl text-black">{loading.message}</p>
         </div>
       ) : (
         <div

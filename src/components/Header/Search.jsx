@@ -1,16 +1,21 @@
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import searchImg from "../../assets/search.svg";
 import { LocationContext } from "../../context";
 import { getLocationByName } from "../../data/location-data";
+import { useDebounce } from "../../hooks";
 
 export default function Search() {
-  const [searchTerm, setSearchTerm] = useState("");
   const { setSelectedLocation } = useContext(LocationContext);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const fetchedLocation = getLocationByName(searchTerm);
+  const doSearch = useDebounce((term) => {
+    const fetchedLocation = getLocationByName(term);
     setSelectedLocation({ ...fetchedLocation });
+  }, 500);
+
+  function handleSearch(e) {
+    const value = e.target.value;
+
+    doSearch(value);
   }
 
   return (
@@ -21,12 +26,9 @@ export default function Search() {
             className="bg-transparent  placeholder:text-white text-white w-full text-xs md:text-base outline-none border-none"
             type="search"
             placeholder="Search Location"
-            onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={handleSearch}
             required
           />
-          <button type="submit" onClick={handleSubmit}>
-            <img src={searchImg} />
-          </button>
         </div>
       </form>
     </>
